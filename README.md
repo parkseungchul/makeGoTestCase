@@ -1,16 +1,16 @@
-#make simply test-case template in golang
+# make simply test-case template in golang
 
-##if you use this, you can make simple test-case template
+## if you use this, you can make simple test-case template
 
-##This program wants only file-name
+## This program wants only file-name
 
-###git clone  https://github.com/parkseungchul/makeGoTestCase.git
+### git clone  https://github.com/parkseungchul/makeGoTestCase.git
 
-###and then 
+### and then 
 
-###Simply look at this 
+### Simply look at this 
 
-###/testing/make/makeTest_test.go
+### /testing/make/makeTest_test.go
 
 
 
