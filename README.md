@@ -12,6 +12,7 @@
 
 ### /testing/make/makeTest_test.go
 
+### 1. if you want to excepts test-case then you must include "[-]" in comment.
 
 
 

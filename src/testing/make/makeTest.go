@@ -10,6 +10,27 @@ import (
 	"errors"
 )
 
+const (
+	preComment string = "// "
+	divsion string =", "
+	funDivsion string = "\n\n"
+	expectKey ="[-]"
+)
+
+type FieldInfo struct {
+	fType string
+	fName string
+}
+
+type FuncInfo struct{
+	fType string   // receive R, function F
+	name string
+	receive FieldInfo
+	parameters []FieldInfo
+	results  []FieldInfo
+	comments string
+}
+
 func Maker(inputName string)(err error){
 
 	contents, pathName, fileName, err := makeTest(inputName)
@@ -36,11 +57,6 @@ func makeFile(contents, pathName, fileName string)(err error){
 	return
 }
 
-type FieldInfo struct {
-	fType string
-	fName string
-}
-
 // isName, isType
 func (f FieldInfo)Gender(isName bool, isType bool)string{
 	if isType && isName {
@@ -55,64 +71,18 @@ func (f FieldInfo)Gender(isName bool, isType bool)string{
 	}else {
 		return ""
 	}
-
-
-}
-
-type FuncInfo struct{
-	fType string   // receive R, function F
-	name string
-	receive FieldInfo
-	parameters []FieldInfo
-	results  []FieldInfo
-	comments string
-}
-
-const (
-	preComment string = "// "
-	divsion string =", "
-	funDivsion string = "\n\n"
-)
-
-
-
-func (f FuncInfo)Print(){
-	fmt.Println("===========")
-	fmt.Print(f.fType)
-	fmt.Println(f.name)
-
-	if f.parameters != nil {
-		fmt.Println("parameters", len(f.parameters))
-		for _, value := range f.parameters {
-			fmt.Println(value)
-		}
-	}
-
-	if f.results != nil {
-		fmt.Println("results", len(f.results))
-		for _, value := range f.results {
-			fmt.Println(value)
-		}
-	}
-
-	if f.comments != "" {
-		fmt.Println("comments")
-		fmt.Print(f.comments)
-	}
-	fmt.Println("\n===========")
 }
 
 func (f FuncInfo)Gender()(parser string){
-
-testCaseName := ""
-funcName :=""
-if f.fType == "F" {
-	testCaseName = "_"+f.name
-	funcName = f.name
-}else{
-	testCaseName = "_"+f.receive.fType+"_"+f.name
-	funcName =f.receive.fType+"{}."+ f.name
-}
+	testCaseName := ""
+	funcName :=""
+	if f.fType == "F" {
+		testCaseName = "_"+f.name
+		funcName = f.name
+	}else{
+		testCaseName = "_"+f.receive.fType+"_"+f.name
+		funcName =f.receive.fType+"{}."+ f.name
+	}
 
 parser =
 `func Test`+ testCaseName+`(t *testing.T){
@@ -204,6 +174,11 @@ func makeTest(inutName string)(contents, pathName, fileName string, err error){
 			}else{
 				funcInfo.comments = getSpace(1) + preComment
 			}
+
+			if strings.ContainsAny(funcInfo.comments, expectKey) {
+				continue
+			}
+
 
 			if len(n.Type.Params.List) != 0 {
 				for _, getPara := range n.Type.Params.List {
@@ -305,3 +280,29 @@ func envCheck(inputName string)(packageName, pathName, fileName string, err erro
 	return packageName, pathName, fileName , err
 }
 
+
+func (f FuncInfo)Print(){
+	fmt.Println("===========")
+	fmt.Print(f.fType)
+	fmt.Println(f.name)
+
+	if f.parameters != nil {
+		fmt.Println("parameters", len(f.parameters))
+		for _, value := range f.parameters {
+			fmt.Println(value)
+		}
+	}
+
+	if f.results != nil {
+		fmt.Println("results", len(f.results))
+		for _, value := range f.results {
+			fmt.Println(value)
+		}
+	}
+
+	if f.comments != "" {
+		fmt.Println("comments")
+		fmt.Print(f.comments)
+	}
+	fmt.Println("\n===========")
+}
