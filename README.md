@@ -1,10 +1,10 @@
 # This is to make simply test-case template in golang
 
-# AS-IS
+# Before code
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/as-is.PNG?raw=true)
 
 
-# TO-BE
+# auto make test code 
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/to-be.PNG?raw=true)
 
 
