@@ -1,3 +1,4 @@
+# This is to make simply test-case template in golang
 
 # AS-IS
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/as-is.PNG?raw=true)
@@ -6,7 +7,6 @@
 # TO-BE
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/to-be.PNG?raw=true)
 
-# This is to make simply test-case template in golang
 
 ## This program wants only file-name on $GOPATH
 
