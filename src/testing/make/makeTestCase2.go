@@ -121,10 +121,11 @@ func (f FuncInfo)makeTestCode()(result string){
 		i := strings.LastIndex(a, "}")
 		result = result +  a[:i]+ expectBlace2(f.paraValue) +" )"
 	}
-	result = result + getResultCheck(f.resultValues)
+	result = result + getResultCheck(f)
 
 	result = strings.Replace(result,"\n", "\n"+getSpace(1 ,""), -1)
 	result = getSpace(1, "")+ result
+
 
 	result = "func Test_"+f.name+"(t *testing.T){\n"+ result
 	result = result +"\n}"
@@ -133,20 +134,25 @@ func (f FuncInfo)makeTestCode()(result string){
 	return
 }
 
-func getResultCheck(resultValues []string )(result string){
+func getResultCheck(f FuncInfo)(result string){
+
+
+
 	result = "\n"
-	if resultValues == nil || len(resultValues)  == 0 {
+	if f.resultValues == nil || len(f.resultValues)  == 0 {
 		return
 	}
-	result = result + "if "
-	for i := 0; i < len(resultValues);  i++ {
+	result = result + "if !("
+	for i := 0; i < len(f.resultValues);  i++ {
 		if i == 0 {
-			result = result + fmt.Sprintf("%c",returnVariable[i]) + " == " +  resultValues[i]
+			result = result + fmt.Sprintf("%c",returnVariable[i]) + " == " +  f.resultValues[i]
 		} else {
-			result = result + " && " +fmt.Sprintf("%c",returnVariable[i]) + " == " +  resultValues[i]
+			result = result + " && " +fmt.Sprintf("%c",returnVariable[i]) + " == " +  f.resultValues[i]
 		}
 	}
-	result = result + " {\n" + "}"
+
+	result = result + " ){\n"
+	result = result + getSpace(1, "")+`t.Error("Error `+f.name+`")`+ "\n}"
 	return
 }
 

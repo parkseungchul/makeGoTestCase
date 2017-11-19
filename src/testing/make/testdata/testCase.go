@@ -10,7 +10,7 @@ type TestStruct struct {
 // {1,2}=>{3,"12"}
 func sum1(a int, b int)( int, string) {
 
-	return a + b, fmt.Sprintf("%s%s",a, b)
+	return a + b, fmt.Sprintf("%d%d",a, b)
 }
 
 func sum2(a int, b int)TestStruct{
