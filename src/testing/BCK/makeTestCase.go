@@ -1,4 +1,4 @@
-package make
+package BCK
 
 import (
 	"os"
@@ -117,10 +117,19 @@ parser =
 	}
 
 	genBody = strings.Replace(genBody, "#genResult#",genResult,1)
-
 	parser = strings.Replace(parser, "#genBody#", genBody, 1)
+
+
+
+
+
 	return
 }
+
+func checkParaResult(comment string){
+
+}
+
 
 
 func getSpace(level int)(result string){
@@ -224,6 +233,11 @@ func makeTest(inutName string)(contents, pathName, fileName string, err error){
 
 	body := ""
 	for index, funcInfo := range funcInfos {
+
+		// this area debug
+		funcInfo.Print()
+		// this area debug
+
 		if (index == len(funcInfos)-1){
 			body = body + funcInfo.Gender()
 		}else{

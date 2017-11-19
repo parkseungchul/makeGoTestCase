@@ -1,20 +1,35 @@
 package testdata
 
+import "fmt"
+
 type TestStruct struct {
-	str1 string
+	sum int
 }
 
 // sum1 function
+// {1,2}=>{3,"12"}
 func sum1(a int, b int)( int, string) {
-	return a + b, ""
+
+	return a + b, fmt.Sprintf("%s%s",a, b)
 }
+
+func sum2(a int, b int)TestStruct{
+	return TestStruct{a+b}
+}
+
 
 // receive function
-func (t TestStruct)receiveFun()string{
-	return t.str1
+// TestStruct{1}.{}=>{1}
+func (t TestStruct)receiveFun()int{
+	return t.sum
 }
 
-// [-] subtract two numbers
+// [-] subtract two numbers - this expects to make a test-case
 func subtract1(a int, b int)(int){
+	return a - b
+}
+
+// {2,2}=>{0}
+func subtract2(a int, b int)(int){
 	return a - b
 }
