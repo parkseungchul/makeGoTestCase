@@ -4,7 +4,6 @@
 
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
 
-# 실행을 하게 되면 
 
 ## 대상 파일 함수 [testCase.go](src/testing/make/testdata/testCaset.go)
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/as-is.PNG?raw=true)
