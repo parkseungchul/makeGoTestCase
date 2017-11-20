@@ -1,26 +1,17 @@
-# This is to make simply test-case template in golang
+# 테스트 케이스를 자동으로 만들어 주는 프로그램입니다. 
 
-# Before code
-![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/as-is.PNG?raw=true)
+## 확인할 수 있는 코드는 아래와 같이 간단합니다.
 
+![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
 
-# auto make test code 
-![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/to-be.PNG?raw=true)
+# 실행을 하게 되면 
 
+## 대상 파일 함수 [testCase.go](src/testing/make/testdata/testCaset.go)
+![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/as-is.PNG?raw=true)
 
-## This program wants only file-name on $GOPATH
+## 자동으로 생성 된 테스트 파일의 함수 [testCase_testCase_temp_test.go](src/testing/make/testdata/testCase_temp_test.go)
+![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/to-be.PNG?raw=true)
 
-### git clone  https://github.com/parkseungchul/makeGoTestCase.git
-
-### and then look at this [makeTestCase2_test.go](src/testing/make/makeTestCase2_test.go)
-
-### Execute this.  it will make test-case template about input golang file
-
-## 고랭 파일을 스캔하여 테스트 코드 파일을 만들어주는 프로그램입니다.
-
-### 테스트 코드는 다음과 같으며 $GOPATH 이후의 패키지 경로와 파일명을 입력값으로 필요합니다.
- 
-### [makeTestCase2_test.go](src/testing/make/makeTestCase2_test.go)
 
 ### 다음과 같은 조건으로 테스트 코드를 생성
 
