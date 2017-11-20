@@ -1,6 +1,6 @@
 # 테스트 코드 파일을 자동으로 만들어 주는 프로그램입니다. 
 
-## 확인할 수 있는 코드는 아래와 같이 간단합니다.
+## 테스트 코드는 아래와 같으며 입력값은 $GOPATH 이후에 패키지를 파일명입니다.
 
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
 
