@@ -1,14 +1,16 @@
 ## 고랭 소스코드를 분석하여 테스트 코드 파일을 만들어주는 프로그램
 
-## 테스트 코드는 아래와 같으며 입력값은 $GOPATH 이후에 패키지를 파일명만 필요합니다.
+###  주요 문법: ast,  정규화 표현을 사용 
+
+### 테스트 코드는 아래와 같으며 입력값은 $GOPATH 이후에 패키지를 파일명만 필요합니다.
 
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
 
 
-## 대상 파일 함수 [testCase.go](src/testing/make/testdata/testCaset.go)
+### 대상 파일 함수 [testCase.go](src/testing/make/testdata/testCaset.go)
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/as-is.PNG?raw=true)
 
-## 자동으로 생성 된 테스트 파일의 함수 [testCase_temp_test.go](src/testing/make/testdata/testCase_temp_test.go)
+### 자동으로 생성 된 테스트 파일의 함수 [testCase_temp_test.go](src/testing/make/testdata/testCase_temp_test.go)
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/to-be.PNG?raw=true)
 
 
