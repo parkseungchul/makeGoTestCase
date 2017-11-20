@@ -2,7 +2,7 @@
 
 ###  주요 문법: ast,  정규화 표현을 사용 
 
-### 테스트 코드는 아래와 같으며 입력값은 $GOPATH 이후에 패키지를 파일명만 필요합니다.
+### 테스트 코드는 아래와 같으며 입력값은 $GOPATH 이후에 패키지를 파일명만 필요
 
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
 
