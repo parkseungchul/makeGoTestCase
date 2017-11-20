@@ -1,6 +1,6 @@
-# 테스트 코드 파일을 자동으로 만들어 주는 프로그램입니다. 
+# 고랭으로 만든 코드를 테스트 코드로 만들어 주는 프로그램입니다. 
 
-## 테스트 코드는 아래와 같으며 입력값은 $GOPATH 이후에 패키지를 파일명입니다.
+## 테스트 코드는 아래와 같으며 입력값은 $GOPATH 이후에 패키지를 파일명만 필요합니다.
 
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
 
