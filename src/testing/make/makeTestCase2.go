@@ -69,6 +69,13 @@ type FieldInfo struct {
 	fName string
 }
 
+type Value struct {
+	paraValue string
+	resultValue string
+	resultValues[] string
+}
+
+
 type FuncInfo struct{
 	fType string   // receive R, function F
 	name string
@@ -77,14 +84,15 @@ type FuncInfo struct{
 	results  []FieldInfo
 	comments string
 	isValue bool  // exist in, out variable
-	paraValue string
-	resultValue string
-	resultValues[] string
+	//paraValue string
+	//resultValue string
+	//resultValues[] string
+	values []Value
 
 }
 
 // 파라미터 변수를 리턴합니다.
-func getReturnVariable(cnt int)(result string){
+func getReturnVariable(cnt int, isFirst bool)(result string){
 	if cnt == 0 {
 		return
 	}
@@ -95,7 +103,14 @@ func getReturnVariable(cnt int)(result string){
 			result = result + fmt.Sprintf("%c, ",returnVariable[i])
 		}
 	}
-	return result + " := "
+
+	if isFirst {
+		return result + " := "
+	}else{
+		return result + " = "
+	}
+
+
 }
 
 
@@ -111,22 +126,40 @@ func (f FuncInfo)makeTestCode()(result string){
 		result = result + comments
 	}
 
-   // 리턴 값 만들기
-	result = result + getReturnVariable(len(f.results))
 
-	if f.fType == "F" {
-		result = result +  f.name+"( "+expectBlace(f.paraValue) +" )"
-	} else {
-		a := strings.Replace(f.paraValue, "}.{", "}."+f.name+"(", -1)
-		i := strings.LastIndex(a, "}")
+	for i := 0; i<len(f.values);i++ {
+		if i == 0 {
+			// 리턴 값 만들기
+			result = result + getReturnVariable(len(f.results), true)
+		}else {
+			result = result + getReturnVariable(len(f.results), false)
+		}
+		if f.fType == "F" {
+			result = result +  f.name+"( "+expectBlace(f.values[i].paraValue) +" )"
+		} else {
+			a := strings.Replace(f.values[i].paraValue, "}.{", "}."+f.name+"(", -1)
+			i := strings.LastIndex(a, "}")
 
-		//result = result +  a[:i]+ expectBlace2(f.paraValue) +" )"
-		result = result +  a[:i] +" )"
+			//result = result +  a[:i]+ expectBlace2(f.paraValue) +" )"
+			result = result +  a[:i] +" )"
+		}
+		result = result + getResultCheck(f.values[i], f.name)
+
+
 	}
-	result = result + getResultCheck(f)
+
+
+
+
+
+
+
 
 	result = strings.Replace(result,"\n", "\n"+getSpace(1 ,""), -1)
 	result = getSpace(1, "")+ result
+
+
+
 
 	result = "func Test_"+f.name+"(t *testing.T){\n"+ result
 	result = result +"\n}"
@@ -134,23 +167,23 @@ func (f FuncInfo)makeTestCode()(result string){
 	return
 }
 
-func getResultCheck(f FuncInfo)(result string){
+func getResultCheck(v Value, name string)(result string){
 
 	result = "\n"
-	if f.resultValues == nil || len(f.resultValues)  == 0 {
+	if v.resultValues == nil || len(v.resultValues)  == 0 {
 		return
 	}
 	result = result + "if !("
-	for i := 0; i < len(f.resultValues);  i++ {
+	for i := 0; i < len(v.resultValues);  i++ {
 		if i == 0 {
-			result = result + fmt.Sprintf("%c",returnVariable[i]) + " == " +  f.resultValues[i]
+			result = result + fmt.Sprintf("%c",returnVariable[i]) + " == " +  v.resultValues[i]
 		} else {
-			result = result + " && " +fmt.Sprintf("%c",returnVariable[i]) + " == " +  f.resultValues[i]
+			result = result + " && " +fmt.Sprintf("%c",returnVariable[i]) + " == " +  v.resultValues[i]
 		}
 	}
 
 	result = result + " ){\n"
-	result = result + getSpace(1, "")+`t.Error("Error `+f.name+`")`+ "\n}"
+	result = result + getSpace(1, "")+`t.Error("Error `+name+`")`+ "\n}\n"
 	return
 }
 
@@ -292,13 +325,17 @@ func ParserFun(info *Info)(funcInfos []FuncInfo){
 
 
 			lines := strings.Split(doc, "\n")
+
+			values := make([]Value, 0)
 			for _, line := range lines {
 				// 주석에서 인아웃 전문이 있는지 검사
 				//inOutExpress := `(([a-zA-Z0-9]+)?{[a-zA-Z0-9\.\,\s\"\{\}]*})=>({[a-zA-Z0-9\.\,\s\"\{\}]*})`
 				inOutExpress := `(([a-zA-Z0-9]+)?{[a-zA-Z0-9\.\,\s\"\{\}\:]*})=>({[a-zA-Z0-9\.\,\s\"\{\}\:]*})`
 
 				isMatchLine, _:= regexp.MatchString(inOutExpress, line)
+
 				if isMatchLine {
+					value := Value{}
 					funcInfo.isValue = true
 					inOutRegexp := regexp.MustCompile(inOutExpress)
 					ios := inOutRegexp.FindAllString(line, -1)
@@ -307,18 +344,22 @@ func ParserFun(info *Info)(funcInfos []FuncInfo){
 					inOutStr := ios[0]
 					inOutIndex := strings.Index(inOutStr,divide)
 					// fmt.Println("[PRE]",inOutStr[:inOutIndex],"[POST]",inOutStr[inOutIndex+len(divide):])
-					funcInfo.paraValue = inOutStr[:inOutIndex]
-					funcInfo.resultValue = inOutStr[inOutIndex+len(divide):]
-
+					//funcInfo.paraValue = inOutStr[:inOutIndex]
+					value.paraValue =  inOutStr[:inOutIndex]
+					//funcInfo.resultValue = inOutStr[inOutIndex+len(divide):]
+					value.resultValue =  inOutStr[inOutIndex+len(divide):]
 
 					// 블래이스 안에 절대 분해 표현식
 					//dismemberExpress := `([a-zA-Z0-9]+{[a-zA-Z0-9\,\"\s]+})|("[a-zA-Z0-9\,\s]+")|(true)|(false)|([0-9\.]+)`
 					dismemberExpress := `([a-zA-Z0-9]+{[a-zA-Z0-9\,\"\s\:]+})|("[a-zA-Z0-9\,\s]+")|(true)|(false)|([0-9\.]+)`
 					dismemberRegexp := regexp.MustCompile(dismemberExpress)
-					funcInfo.resultValues = dismemberRegexp.FindAllString(funcInfo.resultValue, -1)
-					break
+					//funcInfo.resultValues = dismemberRegexp.FindAllString(funcInfo.resultValue, -1)
+
+					value.resultValues = dismemberRegexp.FindAllString(value.resultValue , -1)
+					values = append(values, value)
 				}
 			}
+			funcInfo.values = values
 
 			paras := make([]FieldInfo, 0)
 			if len(n.Type.Params.List) != 0 {

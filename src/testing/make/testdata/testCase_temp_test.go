@@ -9,6 +9,7 @@ func Test_sum1(t *testing.T){
     if !(a == 3 && b == "12" ){
         t.Error("Error sum1")
     }
+    
 }
 
 func Test_sum2(t *testing.T){
@@ -34,6 +35,7 @@ func Test_receiveFun1(t *testing.T){
     if !(a == 1 ){
         t.Error("Error receiveFun1")
     }
+    
 }
 
 func Test_receiveFun2(t *testing.T){
@@ -43,6 +45,7 @@ func Test_receiveFun2(t *testing.T){
     if !(a == 2 ){
         t.Error("Error receiveFun2")
     }
+    
 }
 
 func Test_receiveFun3(t *testing.T){
@@ -56,7 +59,12 @@ func Test_receiveFun3(t *testing.T){
 
 func Test_subtract2(t *testing.T){
     // {2,2}=>{0}
+    // {4,4}=>{0}
     a := subtract2( 2,2 )
+    if !(a == 0 ){
+        t.Error("Error subtract2")
+    }
+    a = subtract2( 4,4 )
     if !(a == 0 ){
         t.Error("Error subtract2")
     }
