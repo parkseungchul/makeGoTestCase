@@ -12,16 +12,45 @@ func Test_sum1(t *testing.T){
 }
 
 func Test_sum2(t *testing.T){
-    // a := sum2(  )
+    // sum2 function
+    // {1,2}=>{ TestStruct{sum:3} }
+    a := sum2( 1,2 )
+    if !(a == TestStruct{sum:3} ){
+        t.Error("Error sum2")
+    }
+}
+
+func Test_sum3(t *testing.T){
+    // sum3 function
+    // {1,2}=>{}
+    sum3( 1,2 )
     
 }
 
-func Test_receiveFun(t *testing.T){
-    // receive function
+func Test_receiveFun1(t *testing.T){
+    // receiveFun1 method
     // TestStruct{1}.{}=>{1}
-    a := TestStruct{1}.receiveFun( )
+    a := TestStruct{1}.receiveFun1( )
     if !(a == 1 ){
-        t.Error("Error receiveFun")
+        t.Error("Error receiveFun1")
+    }
+}
+
+func Test_receiveFun2(t *testing.T){
+    // receive function
+    // TestStruct{1}.{1}=>{2}
+    a := TestStruct{1}.receiveFun2(1 )
+    if !(a == 2 ){
+        t.Error("Error receiveFun2")
+    }
+}
+
+func Test_receiveFun3(t *testing.T){
+    // receive function
+    // TestStruct{1}.{1,1}=>{3}
+    a := TestStruct{1}.receiveFun3(1,1 )
+    if !(a == 3 ){
+        t.Error("Error receiveFun3")
     }
 }
 

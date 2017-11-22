@@ -119,24 +119,22 @@ func (f FuncInfo)makeTestCode()(result string){
 	} else {
 		a := strings.Replace(f.paraValue, "}.{", "}."+f.name+"(", -1)
 		i := strings.LastIndex(a, "}")
-		result = result +  a[:i]+ expectBlace2(f.paraValue) +" )"
+
+		//result = result +  a[:i]+ expectBlace2(f.paraValue) +" )"
+		result = result +  a[:i] +" )"
 	}
 	result = result + getResultCheck(f)
 
 	result = strings.Replace(result,"\n", "\n"+getSpace(1 ,""), -1)
 	result = getSpace(1, "")+ result
 
-
 	result = "func Test_"+f.name+"(t *testing.T){\n"+ result
 	result = result +"\n}"
-
 
 	return
 }
 
 func getResultCheck(f FuncInfo)(result string){
-
-
 
 	result = "\n"
 	if f.resultValues == nil || len(f.resultValues)  == 0 {
@@ -169,7 +167,7 @@ func expectBlace(str string)(result string){
 	}
 }
 
-// 일반함수 블레이스 벗겨내기
+// 리시브 함수 블레이스 벗겨내기
 func expectBlace2(str string)(result string){
 	post := strings.LastIndex(str, "}")
 	pre := strings.Index(str[:post],"}.{")
@@ -296,7 +294,9 @@ func ParserFun(info *Info)(funcInfos []FuncInfo){
 			lines := strings.Split(doc, "\n")
 			for _, line := range lines {
 				// 주석에서 인아웃 전문이 있는지 검사
-				inOutExpress := `(([a-zA-Z0-9]+)?{[a-zA-Z0-9\.\,\s\"\{\}]*})=>({[a-zA-Z0-9\.\,\s\"\{\}]*})`
+				//inOutExpress := `(([a-zA-Z0-9]+)?{[a-zA-Z0-9\.\,\s\"\{\}]*})=>({[a-zA-Z0-9\.\,\s\"\{\}]*})`
+				inOutExpress := `(([a-zA-Z0-9]+)?{[a-zA-Z0-9\.\,\s\"\{\}\:]*})=>({[a-zA-Z0-9\.\,\s\"\{\}\:]*})`
+
 				isMatchLine, _:= regexp.MatchString(inOutExpress, line)
 				if isMatchLine {
 					funcInfo.isValue = true
@@ -312,7 +312,8 @@ func ParserFun(info *Info)(funcInfos []FuncInfo){
 
 
 					// 블래이스 안에 절대 분해 표현식
-					dismemberExpress := `([a-zA-Z0-9]+{[a-zA-Z0-9\,\"\s]+})|("[a-zA-Z0-9\,\s]+")|(true)|(false)|([0-9\.]+)`
+					//dismemberExpress := `([a-zA-Z0-9]+{[a-zA-Z0-9\,\"\s]+})|("[a-zA-Z0-9\,\s]+")|(true)|(false)|([0-9\.]+)`
+					dismemberExpress := `([a-zA-Z0-9]+{[a-zA-Z0-9\,\"\s\:]+})|("[a-zA-Z0-9\,\s]+")|(true)|(false)|([0-9\.]+)`
 					dismemberRegexp := regexp.MustCompile(dismemberExpress)
 					funcInfo.resultValues = dismemberRegexp.FindAllString(funcInfo.resultValue, -1)
 					break
