@@ -2,10 +2,6 @@ package testdata
 
 import "fmt"
 
-type TestStruct struct {
-	sum int
-}
-
 // sum1 function
 // {1,2}=>{3,"12"}
 func sum1(a int, b int)( int, string) {
@@ -51,4 +47,8 @@ func subtract1(a int, b int)(int){
 // {4,4}=>{0}
 func subtract2(a int, b int)(int){
 	return a - b
+}
+
+type TestStruct struct {
+	sum int
 }

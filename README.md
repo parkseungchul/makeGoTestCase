@@ -7,12 +7,8 @@
 ![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
 
 
-### 대상 파일 함수 [testCase.go](src/testing/make/testdata/testCaset.go)
-![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/as-is.PNG?raw=true)
-
-### 자동으로 생성 된 테스트 파일의 함수 [testCase_temp_test.go](src/testing/make/testdata/testCase_temp_test.go)
-![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/to-be.PNG?raw=true)
-
+### 테스트 케이스 자동 생성 [testCase.go](src/testing/make/testdata/testCaset.go) => [testCase_temp_test.go](src/testing/make/testdata/testCase_temp_test.go)
+![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/introduce.PNG?raw=true)
 
 ### 다음과 같은 조건으로 테스트 코드를 생성
 
