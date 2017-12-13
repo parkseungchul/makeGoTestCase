@@ -4,7 +4,7 @@
 
 ##### 테스트 코드는 아래와 같으며 입력 파라미터는 $GOPATH 이후에 패키지를 포함한 파일명만 필요
 
-![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/test.PNG?raw=true)
+![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/introduce0.PNG?raw=true)
 
 
 ### 테스트 케이스 자동 생성 [testCase.go](src/testing/make/testdata/testCaset.go) => [testCase_temp_test.go](src/testing/make/testdata/testCase_temp_test.go)
