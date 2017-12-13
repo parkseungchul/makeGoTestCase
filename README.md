@@ -8,7 +8,9 @@
 
 
 ### 테스트 케이스 자동 생성 [testCase.go](src/testing/make/testdata/testCaset.go) => [testCase_temp_test.go](src/testing/make/testdata/testCase_temp_test.go)
-![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/introduce.PNG?raw=true)
+![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/introduce1.PNG?raw=true)
+
+![screenshot](https://github.com/parkseungchul/makeGoTestCase/blob/master/src/testing/make/testdata/img/introduce2.PNG?raw=true)
 
 ### 다음과 같은 조건으로 테스트 코드를 생성
 
